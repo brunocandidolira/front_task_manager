@@ -1,0 +1,51 @@
+import { useState, useEffect } from "react";
+import "./tasks.scss";
+import axios from "axios";
+
+const Tasks = () => {
+    const [tasks, setTasks] = useState([]);
+
+    const fetchTasks = async () => {
+        try {
+            const { data } = await axios.get("http://localhost:8000/tasks");
+            console.log(data);
+            setTasks(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchTasks();
+    }, []);
+
+    return (
+        <div className="tasks-container">
+            <h2>Minhas tarefas</h2>
+
+            <div className="last-tasks">
+                <h3>Últimas Tarefas</h3>
+                <div className="tasks-list"></div>
+
+                {tasks
+                    .filter((task) => task.isCompleted === false)
+                    .map((lastTask) => (
+                        <p key={lastTask.description}>{lastTask.description}</p>
+                    ))}
+            </div>
+
+            <div className="completed-tasks">
+                <h3>Tarefas concluídas</h3>
+
+                {tasks
+                    .filter((task) => task.isCompleted === true)
+                    .map((lastTask) => (
+                        <p key={lastTask.description}>{lastTask.description}</p>
+                    ))}
+                <div className="tasks-list"></div>
+            </div>
+        </div>
+    );
+};
+
+export default Tasks;
