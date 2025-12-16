@@ -1,16 +1,22 @@
-const customInput = ({ label, value }) => {
+import "./customInput.scss";
+const CustomInput = ({ label, value, onChange }) => {
     return (
-        <div className="custon-input-container">
-            <input type="text" className="custom-input" />
+        <div className="custom-input-container">
+            <input
+                type="text"
+                className="custom-input"
+                onChange={(e) => onchange(e)}
+            />
             {label ? (
                 <label
                     className={`${
-                        value.length != "" ? "shrink" : ""
+                        value.length > 0 ? "shrink" : ""
                     } custom-input-label`}
-                ></label>
+                >
+                    {label}
+                </label>
             ) : null}
-            ;
         </div>
     );
 };
-export default customInput;
+export default CustomInput;
