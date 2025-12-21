@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./tasks.scss";
 import axios from "axios";
 import TaskItem from "./TasksItem";
@@ -6,13 +6,14 @@ import AddTask from "./AddTask";
 
 const Tasks = () => {
     const [tasks, setTasks] = useState([]);
+    const lastTasksRef = useRef(null);
 
     const fetchTasks = async () => {
         try {
             const { data } = await axios.get("http://localhost:8000/tasks");
             setTasks(data);
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     };
 
@@ -20,22 +21,32 @@ const Tasks = () => {
         fetchTasks();
     }, []);
 
+    useEffect(() => {
+        if (lastTasksRef.current) {
+            lastTasksRef.current.scrollTop = 0;
+        }
+    }, [tasks]);
+
     return (
         <div className="tasks-container">
             <h2>Minhas tarefas</h2>
 
             {/* ÚLTIMAS TAREFAS */}
             <div className="last-tasks">
-                <h3>Últimas tarefas</h3>
+                <h3>Últimas Tarefas</h3>
                 <AddTask fetchTasks={fetchTasks} />
 
-                <div className="tasks-list">
+                <div className="tasks-list" ref={lastTasksRef}>
                     {tasks
                         .filter((task) => !task.isCompleted)
                         .slice()
                         .reverse()
                         .map((task) => (
-                            <TaskItem key={task._id} task={task} />
+                            <TaskItem
+                                key={task._id}
+                                task={task}
+                                fetchTasks={fetchTasks}
+                            />
                         ))}
                 </div>
             </div>
@@ -48,7 +59,11 @@ const Tasks = () => {
                     {tasks
                         .filter((task) => task.isCompleted)
                         .map((task) => (
-                            <TaskItem key={task._id} task={task} />
+                            <TaskItem
+                                key={task._id}
+                                task={task}
+                                fetchTasks={fetchTasks}
+                            />
                         ))}
                 </div>
             </div>

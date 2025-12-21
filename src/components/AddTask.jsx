@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const AddTask = ({ fetchTasks }) => {
     const [task, setTask] = useState("");
 
-    const onchange = (e) => {
+    const onChange = (e) => {
         setTask(e.target.value);
     };
 
@@ -39,9 +39,9 @@ const AddTask = ({ fetchTasks }) => {
     return (
         <div className="add-task-container">
             <CustomInput
-                label="adicionar tarefa..."
+                label="Adicionar tarefa..."
                 value={task}
-                onChange={onchange}
+                onChange={onChange}
             />
             <CustomButton onClick={handleTaskAdd}>
                 <FaPlus size={14} color="white" />
