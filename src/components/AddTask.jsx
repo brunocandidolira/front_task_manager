@@ -26,9 +26,10 @@ const AddTask = ({ fetchTasks }) => {
                 isCompleted: false,
             });
 
-            toast.success("Tarefa adicionada com sucesso!");
             setTask("");
             fetchTasks();
+
+            toast.success("Tarefa adicionada com sucesso!");
         } catch (error) {
             console.error("Erro ao salvar:", error);
             toast.error("Erro ao salvar tarefa");

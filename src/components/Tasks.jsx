@@ -10,10 +10,9 @@ const Tasks = () => {
     const fetchTasks = async () => {
         try {
             const { data } = await axios.get("http://localhost:8000/tasks");
-            console.log(data);
             setTasks(data);
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
@@ -25,27 +24,33 @@ const Tasks = () => {
         <div className="tasks-container">
             <h2>Minhas tarefas</h2>
 
+            {/* ÚLTIMAS TAREFAS */}
             <div className="last-tasks">
-                <h3>Últimas Tarefas</h3>
+                <h3>Últimas tarefas</h3>
                 <AddTask fetchTasks={fetchTasks} />
-                <div className="tasks-list"></div>
 
-                {tasks
-                    .filter((task) => task.isCompleted === false)
-                    .map((lastTask) => (
-                        <TaskItem task={lastTask} />
-                    ))}
+                <div className="tasks-list">
+                    {tasks
+                        .filter((task) => !task.isCompleted)
+                        .slice()
+                        .reverse()
+                        .map((task) => (
+                            <TaskItem key={task._id} task={task} />
+                        ))}
+                </div>
             </div>
 
+            {/* TAREFAS CONCLUÍDAS */}
             <div className="completed-tasks">
                 <h3>Tarefas concluídas</h3>
 
-                {tasks
-                    .filter((task) => task.isCompleted === true)
-                    .map((completedTask) => (
-                        <TaskItem task={completedTask} />
-                    ))}
-                <div className="tasks-list"></div>
+                <div className="tasks-list">
+                    {tasks
+                        .filter((task) => task.isCompleted)
+                        .map((task) => (
+                            <TaskItem key={task._id} task={task} />
+                        ))}
+                </div>
             </div>
         </div>
     );
