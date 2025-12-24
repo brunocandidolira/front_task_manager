@@ -1,9 +1,6 @@
 import "./tasksItem.scss";
-
 import { AiFillDelete } from "react-icons/ai";
-
 import axios from "axios";
-import Tasks from "./Tasks";
 import { toast } from "react-toastify";
 
 const TaskItem = ({ task, fetchTasks }) => {
@@ -11,11 +8,24 @@ const TaskItem = ({ task, fetchTasks }) => {
         try {
             await axios.delete(`http://localhost:8000/tasks/${task._id}`);
             await fetchTasks();
-            toast.success("deletado com sucesso!!");
+            toast.success("Tarefa deletada com sucesso!");
         } catch (error) {
-            toast.error("erro ao deletar tarefa!!");
+            toast.error("Erro ao deletar tarefa!");
         }
     };
+
+    const handleTaskCompletionChange = async (e) => {
+        try {
+            await axios.patch(`http://localhost:8000/tasks/${task._id}`, {
+                isCompleted: e.target.checked,
+            });
+            await fetchTasks();
+            toast.success("Tarefa atualizada!");
+        } catch (error) {
+            toast.error("Erro ao atualizar tarefa!");
+        }
+    };
+
     return (
         <div className="task-item-container">
             <div className="task-description">
@@ -27,16 +37,23 @@ const TaskItem = ({ task, fetchTasks }) => {
                     }
                 >
                     {task.description}
-                    <input type="checkbox" defaultChecked={task.isCompleted} />
+
+                    <input
+                        type="checkbox"
+                        checked={!!task.isCompleted}
+                        onChange={handleTaskCompletionChange}
+                    />
+
                     <span
                         className={
                             task.isCompleted
                                 ? "checkmark completed"
                                 : "checkmark"
                         }
-                    ></span>
+                    />
                 </label>
             </div>
+
             <div className="delete">
                 <AiFillDelete
                     size={18}
@@ -47,4 +64,5 @@ const TaskItem = ({ task, fetchTasks }) => {
         </div>
     );
 };
+
 export default TaskItem;
