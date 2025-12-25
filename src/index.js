@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.scss";
+import { BrowserRouter } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <React.StrictMode>
-        <App />
-        <ToastContainer position="bottom-center" autoClose={2000} />
+        <BrowserRouter>
+            <App />
+            <ToastContainer position="bottom-center" autoClose={2000} />
+        </BrowserRouter>
     </React.StrictMode>
 );
