@@ -4,13 +4,17 @@ import { useNavigate } from "react-router-dom";
 import "./sidebar.scss";
 
 const Sidebar = () => {
+    const navigate = useNavigate();
+    const hadleSignInClick = () => {
+        navigate("/login");
+    };
     return (
         <div className="sidebar-container">
             <div className="logo">
                 <img src={logo} alt="Emperion Barbershop" />
             </div>
             <div className="sine-out">
-                <CustomButton>Sair</CustomButton>
+                <CustomButton onClick={hadleSignInClick}>Sair</CustomButton>
             </div>
         </div>
     );
