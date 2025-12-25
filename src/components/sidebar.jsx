@@ -1,6 +1,6 @@
 import logo from "../assets/imagens/logo.png";
 import CustomButton from "./CustomButton";
-
+import { useNavigate } from "react-router-dom";
 import "./sidebar.scss";
 
 const Sidebar = () => {

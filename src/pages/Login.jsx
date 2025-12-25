@@ -1,12 +1,19 @@
-import CustomButton from "..components/CustomButton";
+import CustomButton from "../components/CustomButton";
+import { useNavigate } from "react-router-dom";
+
 import logo from "../assets/imagens/logo.png";
-import "./login.scss";
+import "./Login.scss";
 const Login = () => {
+    const navigate = useNavigate();
+
+    const handleSignInClick = () => {
+        navigate("/");
+    };
     return (
-        <div className="logo-container">
+        <div className="login-container">
             <img src={logo} alt="Emperion Barbershop" />
             <div className="button-container">
-                <CustomButton>Entrar</CustomButton>
+                <CustomButton onClick={handleSignInClick}>Entrar</CustomButton>
             </div>
         </div>
     );

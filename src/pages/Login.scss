@@ -1,0 +1,15 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw; // ocupa toda a largura da tela
+    height: 100vh; // ocupa toda a altura da tela
+
+    .button-container {
+        width: 150px;
+        color: black;
+        margin-top: 16px;
+    }
+}
