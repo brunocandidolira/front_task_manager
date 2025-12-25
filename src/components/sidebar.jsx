@@ -1,9 +1,9 @@
-import logo from "./src/assets/imagens/logo.png";
+import logo from "../assets/imagens/logo.png";
 import CustomButton from "./CustomButton";
 
 import "./sidebar.scss";
 
-const sidebar = () => {
+const Sidebar = () => {
     return (
         <div className="sidebar-container">
             <div className="logo">
@@ -15,4 +15,4 @@ const sidebar = () => {
         </div>
     );
 };
-export default sidebar;
+export default Sidebar;
