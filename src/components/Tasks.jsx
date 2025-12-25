@@ -3,6 +3,7 @@ import "./tasks.scss";
 import axios from "axios";
 import TaskItem from "./TasksItem";
 import AddTask from "./AddTask";
+import { toast } from "react-toastify";
 
 const Tasks = () => {
     const [tasks, setTasks] = useState([]);
@@ -12,8 +13,8 @@ const Tasks = () => {
         try {
             const { data } = await axios.get("http://localhost:8000/tasks");
             setTasks(data);
-        } catch (error) {
-            console.log(error);
+        } catch (_error) {
+            toast.error("nenhuma tarefa encontrada!!");
         }
     };
 

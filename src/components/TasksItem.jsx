@@ -9,7 +9,7 @@ const TaskItem = ({ task, fetchTasks }) => {
             await axios.delete(`http://localhost:8000/tasks/${task._id}`);
             await fetchTasks();
             toast.success("Tarefa deletada com sucesso!");
-        } catch (error) {
+        } catch (_error) {
             toast.error("Erro ao deletar tarefa!");
         }
     };
@@ -21,7 +21,7 @@ const TaskItem = ({ task, fetchTasks }) => {
             });
             await fetchTasks();
             toast.success("Tarefa atualizada!");
-        } catch (error) {
+        } catch (_error) {
             toast.error("Erro ao atualizar tarefa!");
         }
     };
