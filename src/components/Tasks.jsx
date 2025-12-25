@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import "./tasks.scss";
 import axios from "axios";
 import TaskItem from "./TasksItem";
@@ -9,18 +9,18 @@ const Tasks = () => {
     const [tasks, setTasks] = useState([]);
     const lastTasksRef = useRef(null);
 
-    const fetchTasks = async () => {
+    const fetchTasks = useCallback(async () => {
         try {
             const { data } = await axios.get("http://localhost:8000/tasks");
             setTasks(data);
         } catch (_error) {
             toast.error("nenhuma tarefa encontrada!!");
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchTasks();
-    }, []);
+    }, [fetchTasks]);
 
     useEffect(() => {
         if (lastTasksRef.current) {

@@ -1,4 +1,3 @@
-import { children } from "react";
 import "./CustomButton.scss";
 
 const CustomButton = ({ onClick, children }) => {
